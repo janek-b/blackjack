@@ -29,7 +29,8 @@ $(function() {
     return card.pop();
   };
 
-  var cardsInHand = [];
+  var playerHand = [];
+  var dealerHand = [];
 
   function getScore(cardsInHand){
     score = 0;
@@ -40,35 +41,61 @@ $(function() {
   };
 
 
+  function dealerDeal() {
+    if (getScore(dealerHand) < 17){
+      var dealerDealCard = popCard(deckArray);
+      dealerHand.push(dealerDealCard);
+      $(".dealerCards").append('<img src="cards/'+dealerDealCard.card+'.png">');
+    }
+  }
+
+
   $("#dealCards").click(function(){
-    if (cardsInHand.length < 2) {
+    if (playerHand.length < 2) {
       for (var i = 0; i < 2; i++) {
         var dealCard = popCard(deckArray);
-        cardsInHand.push(dealCard);
+        playerHand.push(dealCard);
         $(".displayCards").append('<img src="cards/'+dealCard.card+'.png">');
-        $("#scoreHeader").html(getScore(cardsInHand));
+        $("#scoreHeader").html(getScore(playerHand));
+        var dealerDealCard = popCard(deckArray);
+        dealerHand.push(dealerDealCard);
+        if (i === 0) {
+          $(".dealerCards").append("<img class='hiddenCard' src='http://www.jimknapp.com/Cards/Non-Bicycle_files/image002.jpg'>")
+        } else {
+          $(".dealerCards").append('<img src="cards/'+dealerDealCard.card+'.png">');
+        }
       }
     } else {
       var dealCard = popCard(deckArray);
-      cardsInHand.push(dealCard);
+      playerHand.push(dealCard);
       $(".displayCards").append('<img src="cards/'+dealCard.card+'.png">');
-      $("#scoreHeader").html(getScore(cardsInHand));
+      $("#scoreHeader").html(getScore(playerHand));
+      dealerDeal();
     }
-    console.log(cardsInHand);
-    if (getScore(cardsInHand) === 21) {
-      $("#scoreHeader").html("<strong>YOU WIN!</strong>" + getScore(cardsInHand))
-    } else if (getScore(cardsInHand) > 21) {
-      cardsInHand.forEach(function(currentCard){
-        if ((currentCard.cardValue === 11) && getScore(cardsInHand) > 10) {
+
+    if (getScore(playerHand) === 21) {
+      $("#scoreHeader").html("<strong>YOU WIN!</strong>" + getScore(playerHand))
+    } else if (getScore(playerHand) > 21) {
+      playerHand.forEach(function(currentCard){
+        if ((currentCard.cardValue === 11) && getScore(playerHand) > 10) {
             currentCard.cardValue = 1;
-            $("#scoreHeader").html(getScore(cardsInHand));
+            $("#scoreHeader").html(getScore(playerHand));
         };
       });
-      if (getScore(cardsInHand) === 21) {
-        $("#scoreHeader").html("<strong>YOU WIN!</strong>" + getScore(cardsInHand))
-      } else if (getScore(cardsInHand) > 21) {
-        $("#scoreHeader").html("<h1>YOU LOSE!</h1>" + getScore(cardsInHand))
+      if (getScore(playerHand) === 21) {
+        $("#scoreHeader").html("<strong>YOU WIN!</strong>" + getScore(playerHand))
+      } else if (getScore(playerHand) > 21) {
+        $("#scoreHeader").html("<h1>YOU LOSE!</h1>" + getScore(playerHand))
       }
     }
+  });
+
+  $("#playerStand").click(function(){
+    while (getScore(dealerHand) < 17) {
+      dealerDeal();
+    }
+    $(".hiddenCard").hide();
+    $(".dealerCards").prepend("<img src='cards/"+dealerHand[0].card+".png'>");
+    $("#scoreHeader").html("<p>Dealer:"+getScore(dealerHand)+"</p><br><p>"+getScore(playerHand)+"</p>");
   });
 });

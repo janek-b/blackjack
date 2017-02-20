@@ -6,7 +6,7 @@
   display: none;
 }
 
-.displayCards img {
+.displayCards img, .dealerCards img {
   float: left;
   height: 200px;
 }
