@@ -1,0 +1,19 @@
+refactor some things into function/s
+add dealer vs player score win/loss
+
+reset without reloading (add in win/loss tally?)
+HTML and CSS purtification
+add additional human player?
+add fireworks overlay if you WIN
+add betting
+
+$(".container").hide(300, function() {
+  $(".fireworks").show(4000, function() {
+    $(".fireworks").hide(1000, function() {
+        $(".container").show(1000);
+    });
+  });
+});
+
+
+TWO ACES?!

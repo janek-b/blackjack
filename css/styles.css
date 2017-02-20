@@ -10,3 +10,9 @@
   float: left;
   height: 200px;
 }
+
+.fireworks {
+  display: none;
+
+  width: 1500px;
+}
