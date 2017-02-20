@@ -5,3 +5,8 @@
 .displayHit {
   display: none;
 }
+
+.displayCards img {
+  float: left;
+  height: 200px;
+}
