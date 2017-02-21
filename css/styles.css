@@ -1,10 +1,4 @@
-.img-fluid {
-  width: 200px;
-}
 
-.displayHit {
-  display: none;
-}
 
 .displayCards img, .dealerCards img {
   float: left;
@@ -13,6 +7,16 @@
 
 .fireworks {
   display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  width: 100%;
+.well {
+  height: 250px;
+}
+
+.bg-info {
+  height: 100px;
 }

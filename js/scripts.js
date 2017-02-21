@@ -51,7 +51,7 @@ $(function() {
   function playerWin() {
     $(".container").hide(300, function() {
       $(".fireworks").show("fast", function() {
-        $(".fireworks").delay(4000).hide(1000, function() {
+        $(".fireworks").delay(1000).hide(1000, function() {
             $(".container").show(1000);
         });
       });
@@ -92,7 +92,8 @@ $(function() {
         for (var i = 0; i < 2; i++) {
           var dealCard = popCard(deckArray);
           playerHand.push(dealCard);
-          $(".displayCards").append('<img src="cards/'+dealCard.card+'.png">');
+          $(".displayCards").append('<img style="display: none" class="cardImg" src="cards/'+dealCard.card+'.png">');
+          $(".displayCards").find(".cardImg").slideDown("slow");
           $("#scoreHeader").html(getScore(playerHand));
           var dealerDealCard = popCard(deckArray);
           dealerHand.push(dealerDealCard);
